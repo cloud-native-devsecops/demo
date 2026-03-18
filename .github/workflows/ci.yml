@@ -1,0 +1,24 @@
+name: Merge Queue Demo
+
+on:
+  # Normal PR testing
+  pull_request:
+    branches: [ queue-test ]
+  
+  # THIS IS THE REQUIRED SETTING FOR MERGE QUEUES
+  merge_group:
+    types: [ checks_requested ]
+
+jobs:
+  test-logic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run a fake test
+        run: |
+          echo "GitHub is testing this PR as part of a GROUP now!"
+          echo "Simulating tests..."
+          sleep 10
+          echo "Tests Passed!"
